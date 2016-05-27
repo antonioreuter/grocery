@@ -1,0 +1,22 @@
+{
+  "name": "grocery",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Antonio Reuter <antonioreuter@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.1.0",
+    "skeleton": "^2.0.4"
+  }
+}
