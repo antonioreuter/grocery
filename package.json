@@ -6,6 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "babel": "^6.5.2",
+    "babel-register": "^6.9.0",
     "body-parser": "~1.15.1",
     "browser-sync": "^2.12.8",
     "browserify": "^13.0.1",
@@ -16,7 +18,9 @@
     "guid": "0.0.12",
     "gulp": "^3.9.1",
     "gulp-live-server": "0.0.29",
+    "jquery": "^2.2.4",
     "less-middleware": "~2.1.0",
+    "mongoose": "^4.4.19",
     "morgan": "~1.7.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",

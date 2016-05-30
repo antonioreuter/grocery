@@ -2,27 +2,14 @@
 
 var React = require('react');
 var dispatcher = require('./../views/dispatcher.js');
+var restHelper = require('./../helpers/RestHelper.js');
 
 class GroceryItemStore extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {};
 
-        this.state.items = [
-            {
-                name: 'Ice Cream'
-            },
-            {
-                name: 'Waffles'
-            },
-            {
-                name: 'Candy',
-                purchased: true
-            },
-            {
-                name: 'Snacks'
-            }
-        ];
+        this.state.items = [];
 
         this.state.listeners = [];
 
@@ -33,13 +20,25 @@ class GroceryItemStore extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.triggerListeners = this.triggerListeners.bind(this);
         this.registerDispatch = this.registerDispatch.bind(this);
+        this.loadItems = this.loadItems.bind(this);
 
         this.registerDispatch();
+        this.loadItems();
+    }
+
+    loadItems() {
+        var _this = this;
+        restHelper.get("api/items").then(function (data) {
+            _this.state.items = data;
+            _this.triggerListeners();
+        });
     }
 
     addGroceryItem(item) {
         this.state.items.push(item);
         this.triggerListeners();
+
+        restHelper.post("api/items", item);
     }
 
     deleteGroceryItem(item) {
@@ -51,6 +50,8 @@ class GroceryItemStore extends React.Component {
         console.log("removing " + item.name + " from index", index);
         this.state.items.splice(index, 1);
         this.triggerListeners();
+
+        restHelper.del("api/items/" + item._id);
     }
 
     setGroceryItemBought(item, isBought) {
@@ -59,6 +60,8 @@ class GroceryItemStore extends React.Component {
         })[0];
         currentItem.purchased = isBought || false;
         this.triggerListeners();
+
+        restHelper.patch("api/items/" + item._id, item);
     }
 
     getItems() {
